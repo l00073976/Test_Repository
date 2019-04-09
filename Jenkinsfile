@@ -1,7 +1,3 @@
-@Library('utils') _
-
-import utils.SCM_checkout
-
 pipeline {
   agent any
   stages {
@@ -9,7 +5,13 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 				script {
-						SCM_checkout(vars/POC)
+					checkout([$class: 'GitSCM', 
+   						branches: [[name: '*/master']], 
+    					doGenerateSubmoduleConfigurations: false, 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/${SCM_Dir}"]], 
+    					submoduleCfg: [], 
+    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
+    				])
 				}
 			}	
 	  }
