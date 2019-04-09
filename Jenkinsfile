@@ -1,5 +1,7 @@
 @Library('utils') _
 
+import utils.SCM_checkout
+
 pipeline {
   agent any
   stages {
@@ -7,7 +9,7 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 				script {
-						utils.SCM_checkout(vars/POC)
+						SCM_checkout(vars/POC)
 				}
 			}	
 	  }
