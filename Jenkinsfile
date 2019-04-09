@@ -7,7 +7,7 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 				script {
-						SCM.SCM_checkout(vars/POC)
+						utils.SCM_checkout(vars/POC)
 				}
 			}	
 	  }
