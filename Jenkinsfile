@@ -23,7 +23,11 @@ pipeline {
 				stage('Build/Tar Package') {
 	  	steps {
 		  	sh 'echo "*************************Build/Tar Package*************************"'
-				sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/POC/*'
+			sh 'pwd'
+			sh 'ls -ltr ${WORKSPACE}'
+			sh 'cd ${WORKSPACE}'
+			sh 'ls -ltr '
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}*'
 		  }	
 	  }
   	stage('Artifactory Load') {
