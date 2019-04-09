@@ -23,9 +23,10 @@ pipeline {
 				stage('Build/Tar Package') {
 	  	steps {
 		  	sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'cd /rlennon'
+			sh 'cd ${WORKSPACE}/rlennon'
 			sh 'ls -ltr '
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/*'
+			sh 'ls -ltr'
 		  }	
 	  }
   	stage('Artifactory Load') {
