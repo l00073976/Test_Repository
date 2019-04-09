@@ -8,7 +8,28 @@ pipeline {
 					checkout([$class: 'GitSCM', 
    						branches: [[name: '*/master']], 
     					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc"]], 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/Pythonclient"]], 
+    					submoduleCfg: [], 
+    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
+    				])
+					checkout([$class: 'GitSCM', 
+   						branches: [[name: '*/master']], 
+    					doGenerateSubmoduleConfigurations: false, 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/DoodleUI"]], 
+    					submoduleCfg: [], 
+    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
+    				])
+						checkout([$class: 'GitSCM', 
+   						branches: [[name: '*/master']], 
+    					doGenerateSubmoduleConfigurations: false, 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/PythonAPI"]], 
+    					submoduleCfg: [], 
+    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
+    				])
+						checkout([$class: 'GitSCM', 
+   						branches: [[name: '*/master']], 
+    					doGenerateSubmoduleConfigurations: false, 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/ui"]], 
     					submoduleCfg: [], 
     					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     				])
@@ -25,7 +46,7 @@ pipeline {
 		  	sh 'echo "*************************Build/Tar Package*************************"'
 			sh 'cd ${WORKSPACE}/rlennon'
 			sh 'ls -ltr '
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/*'
 			sh 'ls -ltr'
 		  }	
 	  }
