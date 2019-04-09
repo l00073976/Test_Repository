@@ -8,7 +8,7 @@ pipeline {
 					checkout([$class: 'GitSCM', 
    						branches: [[name: '*/master']], 
     					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/${SCM_Dir}"]], 
+    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc"]], 
     					submoduleCfg: [], 
     					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     				])
