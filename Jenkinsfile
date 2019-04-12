@@ -1,3 +1,5 @@
+Library 'jenkins_shared_libraries'
+
 pipeline {
   agent any
   stages {
@@ -5,34 +7,7 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 				script {
-					checkout([$class: 'GitSCM', 
-   						branches: [[name: '*/master']], 
-    					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/Pythonclient"]], 
-    					submoduleCfg: [], 
-    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
-    				])
-					checkout([$class: 'GitSCM', 
-   						branches: [[name: '*/master']], 
-    					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/DoodleUI"]], 
-    					submoduleCfg: [], 
-    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
-    				])
-						checkout([$class: 'GitSCM', 
-   						branches: [[name: '*/master']], 
-    					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/poc/PythonAPI"]], 
-    					submoduleCfg: [], 
-    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
-    				])
-						checkout([$class: 'GitSCM', 
-   						branches: [[name: '*/master']], 
-    					doGenerateSubmoduleConfigurations: false, 
-    					extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/ui"]], 
-    					submoduleCfg: [], 
-    					userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
-    				])
+					    scm_checkout.SCM_checkout(vars/POC)
 				}
 			}	
 	  }
@@ -44,10 +19,7 @@ pipeline {
 				stage('Build/Tar Package') {
 	  	steps {
 		  	sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'cd ${WORKSPACE}/rlennon'
-			sh 'ls -ltr '
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/*'
-			sh 'ls -ltr'
+				sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/POC/*'
 		  }	
 	  }
   	stage('Artifactory Load') {
