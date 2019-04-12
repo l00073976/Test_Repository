@@ -1,4 +1,4 @@
-Library 'jenkins_shared_libraries'
+Library ('jenkins_shared_libraries') _
 
 pipeline {
   agent any
@@ -7,7 +7,7 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 				script {
-					    scm_checkout.SCM_checkout(vars/POC)
+					    scm_checkout.SCM_checkout(src/POC)
 				}
 			}	
 	  }
