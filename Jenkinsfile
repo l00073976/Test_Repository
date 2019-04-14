@@ -1,33 +1,30 @@
-import jenkins.model.*
-jenkins = Jenkins.instance
-
 pipeline {
   agent any
   stages {
     stage('GitHub Pull') {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
-				script {
-					    scm_checkout.SCM_checkout(src/POC)
-				}
-			}	
-	  }
+			script {
+			    scm_checkout.SCM_checkout(src/POC)
+			}
+		}	
+	}
   	stage('Sonar Testing') {
   		steps {
-			  sh 'echo "*************************Sonar Testing*************************"'
- 		  }	
+			 sh 'echo "*************************Sonar Testing*************************"'
+		}	
 	  }
 				stage('Build/Tar Package') {
 	  	steps {
 		  	sh 'echo "*************************Build/Tar Package*************************"'
-				sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/POC/*'
-				sh 'ls -ltr'
-		  }	
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/POC/*'
+			sh 'ls -ltr'
+		}	
 	  }
   	stage('Artifactory Load') {
   		steps {
-			  sh 'echo "*************************Artifactory Load*************************"'
- 		  }	
-	  }
+			sh 'echo "*************************Artifactory Load*************************"'
+ 		}	
+	}
   }
 }
