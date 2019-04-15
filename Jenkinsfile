@@ -22,9 +22,8 @@ pipeline {
 	  }
 				stage('Build/Tar Package') {
 	  	steps {
-			build_Label = doodle_build-${BUILD_NUMBER}
 		  sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'tar -cvf ${build_label}.tar ${WORKSPACE}/src/services/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/services/*'
 			sh 'ls -ltr'
 		}	
 	  }
@@ -32,7 +31,7 @@ pipeline {
   		steps {
 			sh 'echo "*************************Artifactory Load*************************"'
 			sh 'echo "curl command pushes new build package into artifactory"'
-			sh 'curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/${build_label}/${build_label}.tar" -T ${WORKSPACE}/${build_label}.tar'
+			sh 'curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar'
 		  }	
 	  }
   }
