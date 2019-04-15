@@ -5,7 +5,13 @@ pipeline {
 	  	steps {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 			script {
-			    scm_checkout.SCM_checkout(src/POC)
+				checkout([$class: 'GitSCM', 
+   		   	branches: [[name: '*/master']], 
+    			doGenerateSubmoduleConfigurations: false, 
+    			extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/POC"]], 
+    			submoduleCfg: [], 
+   			 userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
+    		])
 			}
 		}	
 	}
