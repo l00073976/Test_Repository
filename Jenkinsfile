@@ -12,7 +12,7 @@ pipeline {
   	stage('Sonar Testing') {
   		steps {
 			 sh 'echo "*************************Sonar Testing*************************"'
-		}	
+		  }	
 	  }
 				stage('Build/Tar Package') {
 	  	steps {
@@ -25,12 +25,9 @@ pipeline {
   	stage('Artifactory Load') {
   		steps {
 			sh 'echo "*************************Artifactory Load*************************"'
-			# curl command pushes new build package into artifactory 
-			sh "curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/${build_label}/${build_label}.tar" -T ${WORKSPACE}/${build_label}.tar"
-			# curl command to add metadata to build on artifactory
-      # sh "curl -X PUT -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} 'http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/${build_label}/'/';ProjectName='${build_label}'"
-
- 		}	
-	}
+			sh 'echo "curl command pushes new build package into artifactory"
+			sh 'curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/${build_label}/${build_label}.tar" -T ${WORKSPACE}/${build_label}.tar'
+		  }	
+	  }
   }
 }
