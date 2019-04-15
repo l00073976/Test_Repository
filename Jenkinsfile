@@ -23,7 +23,7 @@ pipeline {
 				stage('Build/Tar Package') {
 	  	steps {
 		  sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/src/services/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/Doodle_Build/rlennon/doodle/src/services/src/services/*'
 			sh 'ls -ltr'
 		}	
 	  }
