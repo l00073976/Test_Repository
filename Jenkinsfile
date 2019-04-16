@@ -40,10 +40,13 @@ pipeline {
 					echo "curl command pushes new build package into artifactory"
 					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 		  		rm ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
-					cd rlennon
-					rm -R *
 				'''
 			}	
 	  }
   }
+	post {
+		always {
+			cleanWs()
+		}
+	}
 }
