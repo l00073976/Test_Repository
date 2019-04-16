@@ -20,7 +20,7 @@ pipeline {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
 			 sh 'echo "nosetests3 --with-coverage --cover-package=PythonAPI ${WORKSPACE}/rlennon/doodle/src/POC/src/POC/PythonAPI"'
 			 sh 'cd ${WORKSPACE}/rlennon/doodle/src/POC/src/POC/PythonAPI'
-			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI && echo "${Jenkins_Password}"'
+			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
 		  }	
 	  }
 		stage('Build/Tar Package') {
