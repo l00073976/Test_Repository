@@ -8,14 +8,20 @@ pipeline {
 				checkout([$class: 'GitSCM', 
    		   	branches: [[name: '*/master']], 
     			doGenerateSubmoduleConfigurations: false, 
-    			extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/services"]], 
+    			extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "rlennon/doodle/src/POC"]], 
     			submoduleCfg: [], 
    			 userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     		])
 			}
 		}	
 	}
-  	stage('Sonar Testing') {
+  	stage('Code Coverage Testing - Python Builder') {
+  		steps {
+			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
+			 sh 'nosetests --with-coverage --cover-erase --cover-package=PythonAPI --cover-html ${WORKSPACE}/rlennon/doodle/src/services/src/POC/PythonAPI'
+		  }	
+	  }
+		stage('Sonar Testing') {
   		steps {
 			 sh 'echo "*************************Sonar Testing*************************"'
 		  }	
@@ -23,7 +29,7 @@ pipeline {
 				stage('Build/Tar Package') {
 	  	steps {
 		  sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/services/src/services/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/services/src/POC/PythonAPI/*'
 			sh 'ls -ltr'
 		}	
 	  }
