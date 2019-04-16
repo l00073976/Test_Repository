@@ -18,7 +18,7 @@ pipeline {
   	stage('Code Coverage Testing - Python Builder') {
   		steps {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
-			 sh 'nosetests3 --with-coverage --cover-erase --cover-package=PythonAPI --cover-html ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI'
+			 sh 'nosetests3 --with-coverage --cover-package=PythonAPI'
 		  }	
 	  }
 		stage('Build/Tar Package') {
