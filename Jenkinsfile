@@ -20,7 +20,7 @@ pipeline {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
 		   sh 'pwd'
 			 sh 'cd rlennon'
-			 sh 'cd doodle'
+			 sh 'sudo cd doodle'
 			 sh 'cd /src/POC/PythonAPI/src/POC'
 			 sh 'ls -ltr'
 			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
