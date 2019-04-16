@@ -18,8 +18,8 @@ pipeline {
   	stage('Code Coverage Testing - Python Builder') {
   		steps {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
-			 sh 'echo "nosetests3 --with-coverage --cover-package=PythonAPI ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI"'
-			 sh 'cd ${WORKSPACE}/rlennon/doodle/src/POC/'
+			 sh 'echo "nosetests3 --with-coverage --cover-package=PythonAPI ${WORKSPACE}/rlennon/doodle/src/POC/"'
+			 sh 'cd ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/src/POC/'
 			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
 			 sh 'cd ${WORKSPACE}/rlennon'
 			 sh 'sudo rm -R *'
@@ -29,7 +29,7 @@ pipeline {
 		stage('Build/Tar Package') {
 	  	steps {
 		  sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/src/POC/PythonAPI/*'
 			sh 'ls -ltr'
 	  	}	
 	  }
