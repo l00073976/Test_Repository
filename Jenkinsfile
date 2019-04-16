@@ -19,7 +19,7 @@ pipeline {
   		steps {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
 			 sh 'echo "nosetests3 --with-coverage --cover-package=PythonAPI ${WORKSPACE}/rlennon/doodle/src/POC/"'
-			 sh 'cd ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/src/POC/'
+			 sh 'cd /rlennon/doodle/src/POC/PythonAPI/src/POC/'
 			 sh 'ls -ltr'
 			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
 			 sh 'cd ${WORKSPACE}/rlennon'
