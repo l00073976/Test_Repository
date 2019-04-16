@@ -17,18 +17,14 @@ pipeline {
 	  }
   	stage('Code Coverage Testing - Python Builder') {
   		steps {
-			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
-		   sh 'pwd'
-			 sh 'cd rlennon'
-			 sh 'pwd'
-			 sh 'ls -ltr'
-			 sh 'cd doodle'
-			 sh 'cd /src/POC/PythonAPI/src/POC'
-			 sh 'ls -ltr'
-			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
-			 sh 'cd ${WORKSPACE}/rlennon'
-			 sh 'sudo rm -R *'
-			 sh 'rmdir doodle'
+			 sh '''
+			 			echo "*************************Running Nosetests with Python Builder*************************"
+						cd /var/lib/jenkins/workspace/Doodle_Build/rlennon/doodle/src/POC/PythonAPI/src/POC
+			 			sudo nosetests3 --with-coverage --cover-package=PythonAPI
+			 			cd /var/lib/jenkins/workspace/Doodle_Build/rlennon
+			 			sudo rm -R *
+						rmdir doodle
+					'''
 		  }	
 	  }
 		stage('Build/Tar Package') {
