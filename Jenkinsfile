@@ -18,9 +18,10 @@ pipeline {
   	stage('Code Coverage Testing - Python Builder') {
   		steps {
 			 sh 'echo "*************************Running Nosetests with Python Builder*************************"'
-			 sh 'echo "nosetests3 --with-coverage --cover-package=PythonAPI ${WORKSPACE}/rlennon/doodle/src/POC/"'
-			 sh 'pwd'
-			 sh 'cd /var/lib/jenkins/workspace/Doodle_Build/rlennon/doodle/src/POC/PythonAPI/src/POC'
+		   sh 'pwd'
+			 sh 'cd rlennon'
+			 sh 'cd doodle'
+			 sh 'cd /src/POC/PythonAPI/src/POC'
 			 sh 'ls -ltr'
 			 sh 'sudo nosetests3 --with-coverage --cover-package=PythonAPI'
 			 sh 'cd ${WORKSPACE}/rlennon'
