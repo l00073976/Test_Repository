@@ -26,7 +26,7 @@ pipeline {
 		stage('Build/Tar Package') {
 	  	steps {
 		  sh 'echo "*************************Build/Tar Package*************************"'
-			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/*'
+			sh 'tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/rlennon/doodle/src/POC/src/POC/PythonAPI/*'
 			sh 'ls -ltr'
 	  	}	
 	  }
