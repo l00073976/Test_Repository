@@ -19,7 +19,7 @@ pipeline {
   		steps {
 			 sh '''
 			 			echo "*************************Running Nosetests with Python Builder*************************"
-						cd /var/lib/jenkins/workspace/Doodle_Build/rlennon/doodle/src/POC/PythonAPI/src/POC
+						cd ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/src/POC
 			 			sudo nosetests3 --with-coverage --cover-package=PythonAPI
 					'''
 		  }	
@@ -35,10 +35,13 @@ pipeline {
 	  }
   	stage('Artifactory Load') {
   		steps {
+			script {
+				withCredentials([string(credentialsId: 'ARTIFACTORY_PASSWORD', variable: 'ARTIFACTORY_PASSWORD_JOB')]) {
+    		}
 			sh '''
 					echo "*************************Artifactory Load*************************"
 					echo "curl command pushes new build package into artifactory"
-					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
+					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD_JOB} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 		  		rm ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 				'''
 			}	
