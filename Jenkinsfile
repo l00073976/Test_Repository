@@ -36,7 +36,8 @@ pipeline {
   	stage('Artifactory Load') {
   		steps {
 			script {
-				withCredentials([string(credentialsId: 'ARTIFACTORY_PASSWORD', variable: 'ARTIFACTORY_PASSWORD_JOB')]) {
+				withCredentials([string(credentialsId: 'ARTIFACTORY_PASSWORD', variable: 'ARTIFACTORY_PASSWORD_JOB')
+				])
     		}
 			sh '''
 					echo "*************************Artifactory Load*************************"
@@ -44,7 +45,7 @@ pipeline {
 					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD_JOB} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 		  		rm ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 				'''
-			}	
+		}	
 	  }
   }
 	post {
