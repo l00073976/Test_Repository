@@ -13,8 +13,27 @@ pipeline {
    			    userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     		  ])
 			sh 'pwd'
-			  }
-		  }	
-	  }
+				}
+  		}	
+	}
+	stage('Package Prep') {
+	 	steps {
+		  	sh '''
+			  	echo "*************************Staging package*************************"
+				cd ${WORKSPACE}
+				mkdir package
+				cd package
+				mkdir ui
+				mkdir services
+				cd ${WORKSPACE}/rlennon/doodle/src/src
+				cp services ${WORKSPACE}/package/doodle/src/src/services ${WORKSPACE}/package
+				cp ui ${WORKSPACE}/package/doodle/src/src/ui ${WORKSPACE}/package
+				cp requirements.txt ${WORKSPACE}/package
+				cp config.json ${WORKSPACE}/package
+				cd ${WORKSPACE}/package
+				ls -ltr
+			'''
+  		}	
+	}
   }
 }
