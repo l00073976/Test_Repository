@@ -73,6 +73,9 @@ pipeline {
 	  }
   }
 	post {
+		success {
+			build job: 'Doodle_Deploy_Staging', parameters: [[$class: 'StringParameterValue', name: 'DOODLE_BUILD_JOB_BUILD_NUMBER', value: ${BUILD_NUMBER}]]
+		}	
 		always {
 			cleanWs() 
 		}
