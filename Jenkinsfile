@@ -12,13 +12,9 @@ pipeline {
     			  submoduleCfg: [], 
    			    userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     		  ])
+			sh 'pwd'
 			  }
 		  }	
 	  }
   }
-	post {
-		always {
-			cleanWs() 
-		}
-	}
 }
