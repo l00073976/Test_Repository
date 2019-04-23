@@ -40,11 +40,11 @@ pipeline {
 						ls -ltr
 				  '''
 	  	}	
-	  }
+	 }
+	} 
 	post {
 		always {
 			cleanWs() 
 		}
 	}
-  } 	
 }
