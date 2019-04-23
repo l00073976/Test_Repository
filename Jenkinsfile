@@ -15,6 +15,22 @@ pipeline {
 			  }
 		  }	
 	  }
+	stage('Package Prep') {
+	 	steps {
+		  	sh '''
+			  	echo "*************************Staging package*************************"
+				cd ${WORKSPACE}
+				mkdir package
+				cd ${WORKSPACE}/rlennon/doodle/src/src
+				mv services ${WORKSPACE}/package
+				mv ui ${WORKSPACE}/package
+				mv requirements.txt ${WORKSPACE}/package
+				mv config.json ${WORKSPACE}/package
+				cd ${WORKSPACE}/package
+				ls -ltr
+			'''
+  		}	
+	}
   	stage('Code Coverage Testing - Python Builder') {
   		steps {
 			 sh '''
@@ -35,22 +51,6 @@ pipeline {
 					'''
 		  }	
 	  }
-	stage('Package Prep') {
-	 	steps {
-		  	sh '''
-			  	echo "*************************Staging package*************************"
-				cd ${WORKSPACE}
-				mkdir package
-				cd ${WORKSPACE}/rlennon/doodle/src/src
-				mv services ${WORKSPACE}/package
-				mv ui ${WORKSPACE}/package
-				mv requirements.txt ${WORKSPACE}/package
-				mv config.json ${WORKSPACE}/package
-				cd ${WORKSPACE}/package
-				ls -ltr
-			'''
-  		}	
-	}
 	stage('Build/Tar Package') {
 	  	steps {
 		  sh '''
