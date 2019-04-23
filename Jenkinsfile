@@ -19,8 +19,19 @@ pipeline {
   		steps {
 			 sh '''
 			 			echo "*************************Running Nosetests with Python Builder*************************"
+						if [ -n "${WORKSPACE:+1}" ]; then
+    						  # Path to virtualenv cmd installed by pip
+    						  # /usr/local/bin/virtualenv
+    						  PATH=$WORKSPACE/venv/bin:/usr/local/bin:$PATH
+    						  if [ ! -d "venv" ]; then
+            					    virtualenv -p python3 venv
+    						  fi
+    						  . venv/bin/activate
+						fi
+						pip install -r src/pipelines/build/requirements.txt 
 						cd ${WORKSPACE}/rlennon/doodle/src/POC/PythonAPI/src/POC
-			 			sudo nosetests3 --with-coverage --cover-package=PythonAPI
+						nosetests --with-coverage --cover-package=PythonAPI
+						pylint --disable=C0103 PythonAPI/pythonapiPoC.py || exit 0
 					'''
 		  }	
 	  }
@@ -38,15 +49,18 @@ pipeline {
 			sh '''
 					echo "*************************Artifactory Load*************************"
 					echo "curl command pushes new build package into artifactory"
-					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "http://172.28.25.122:8081/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
+					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/doodle-release-local/com/doodle/build/doodle_build-${BUILD_NUMBER}/doodle_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 		  		rm ${WORKSPACE}/doodle_build-${BUILD_NUMBER}.tar
 				'''
 		}	
 	  }
   }
 	post {
+		success {
+			build job: 'Doodle_Build_staging', parameters: [[$class: 'StringParameterValue', name: 'BUILD_JOB_BUILD_NUMBER', value: ${BUILD_NUMBER}]
+		}	
 		always {
-			cleanWs()
+			cleanWs() 
 		}
 	}
 }
