@@ -21,7 +21,6 @@ pipeline {
 		  	sh '''
 			  	echo "*************************Staging package*************************"
 				cd ${WORKSPACE}
-				mkdir package
 				cd ${WORKSPACE}/rlennon/doodle/src/src
 				mv services ${WORKSPACE}/package
 				mv ui ${WORKSPACE}/package
