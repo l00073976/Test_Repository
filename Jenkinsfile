@@ -15,26 +15,6 @@ pipeline {
 			  }
 		  }	
 	  }
-  	stage('Code Coverage Testing - Python Builder') {
-  		steps {
-			 sh '''
-			 			echo "*************************Running Nosetests with Python Builder*************************"
-						if [ -n "${WORKSPACE:+1}" ]; then
-    						  # Path to virtualenv cmd installed by pip
-    						  # /usr/local/bin/virtualenv
-    						  PATH=$WORKSPACE/venv/bin:/usr/local/bin:$PATH
-    						  if [ ! -d "venv" ]; then
-            					    virtualenv -p python3 venv
-    						  fi
-    						  . venv/bin/activate
-						fi
-						pip install -r src/pipelines/requirements.txt 
-						cd ${WORKSPACE}/package/src
-						nosetests --with-coverage --cover-package=services
-						pylint --disable=C0103 services/api.py || exit 0
-					'''
-		  }	
-	  }
 	stage('Package Prep') {
 	 	steps {
 		  	sh '''
