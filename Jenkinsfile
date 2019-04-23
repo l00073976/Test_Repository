@@ -12,15 +12,15 @@ pipeline {
     			  submoduleCfg: [], 
    			    userRemoteConfigs: [[url: 'git@github.com:rlennon/doodle']]
     		  ])
-			sh 'pwd'
-				}
-  		}	
-	}
+			  }
+		  }	
+	  }
 	stage('Package Prep') {
 	 	steps {
 		  	sh '''
 			  	echo "*************************Staging package*************************"
 				cd ${WORKSPACE}
+				mkdir package
 				cd ${WORKSPACE}/rlennon/doodle/src/src
 				mv services ${WORKSPACE}/package
 				mv ui ${WORKSPACE}/package
@@ -31,5 +31,20 @@ pipeline {
 			'''
   		}	
 	}
-  }
+	stage('Build/Tar Package') {
+	  	steps {
+		  sh '''
+						echo "*************************Build/Tar Package*************************"
+						cd ${WORKSPACE}
+						tar -cvf doodle_build-${BUILD_NUMBER}.tar ${WORKSPACE}/package/*
+						ls -ltr
+				  '''
+	  	}	
+	  }
+	post {
+		always {
+			cleanWs() 
+		}
+	}
+  } 	
 }
