@@ -29,7 +29,7 @@ pipeline {
     						  . venv/bin/activate
 						fi
 						pip install -r ${WORKSPACE}/rlennon/doodle/src/src/pipelines/build/requirements.txt 
-						cd ${WORKSPACE}/package/src/
+						cd ${WORKSPACE}/package
 						nosetests --with-coverage --cover-package=services
 						pylint --disable=C0103 services/api.py || exit 0
 					'''
