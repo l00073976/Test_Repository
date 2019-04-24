@@ -6,7 +6,7 @@ pipeline {
 		  	sh '''
 			  echo "*************************Running Security scan for open ports*************************"
 			  ls -ltr
-			  ./Staging_security_port_scanning.py
+			  ./vars/Staging_security_port_scanning.py
 		    '''  		  
 			}
 		}	
