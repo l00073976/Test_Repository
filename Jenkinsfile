@@ -6,6 +6,7 @@ pipeline {
 		  	sh '''
 			  echo "*************************Running Security scan for open ports*************************"
 			  ls -ltr
+			  
 			  if [ -n "${WORKSPACE:+1}" ]; then
     		 	# Path to virtualenv cmd installed by pip
     			# /usr/local/bin/virtualenv
@@ -15,7 +16,7 @@ pipeline {
     			fi
     			    . venv/bin/activate
 			  fi
-			  ./vars/Staging_security_port_scanning.py
+			  python ./varsStaging_security_port_scanning.py
 		    '''  		  
 			}
 		}	
