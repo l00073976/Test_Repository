@@ -16,7 +16,7 @@ pipeline {
     			fi
     			    . venv/bin/activate
 			  fi
-			  python ./varsStaging_security_port_scanning.py
+			  python3 ./vars/Staging_security_port_scanning.py
 		    '''  		  
 			}
 		}	
