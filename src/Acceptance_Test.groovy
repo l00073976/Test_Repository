@@ -1,11 +1,9 @@
 #!/usr/bin/env groovy
 
-pipelines.jenkins_shared_libraries.vars
-
-def Acceptance_Test(ENDPOINT) {
+def call(String STAGING_ENDPOINT = 'test') {
     sh '''
         echo "*************************Testing connection to the Endpoint*************************"
-        if curl -v ${ENDPOINT} 2>&1 | grep "HTTP/1.1 200 OK"
+        if curl -v ${STAGING_ENDPOINT} 2>&1 | grep "HTTP/1.1 200 OK"
         then
 	        echo "Deployment Successful!"
           else
