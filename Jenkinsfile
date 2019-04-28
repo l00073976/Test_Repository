@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Testing') {
       steps {
-            Acceptance_Test(${STAGING_ENDPOINT})
+            Acceptance_Test "${STAGING_ENDPOINT}"
       }
     }
   }
